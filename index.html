@@ -1,0 +1,1503 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebStudio Rennes — Création de sites web professionnels</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --noir: #080808;
+            --noir-2: #0e0e0e;
+            --noir-3: #141414;
+            --noir-4: #1c1c1c;
+            --or: #c9a84c;
+            --or-light: #e2c47a;
+            --or-dark: #a07830;
+            --or-pale: rgba(201,168,76,0.08);
+            --blanc: #f5f0e8;
+            --gris: #888070;
+            --gris-light: rgba(245,240,232,0.45);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background: var(--noir);
+            color: var(--blanc);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.4;
+        }
+
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: var(--noir); }
+        ::-webkit-scrollbar-thumb { background: var(--or); }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 70px;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(8,8,8,0.95);
+            backdrop-filter: blur(20px);
+            padding: 18px 70px;
+            border-bottom: 1px solid rgba(201,168,76,0.12);
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--blanc);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .nav-logo span { color: var(--or); }
+
+        .nav-links {
+            display: flex;
+            gap: 44px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--gris-light);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover { color: var(--or); }
+
+        .nav-cta {
+            border: 1px solid var(--or) !important;
+            color: var(--or) !important;
+            padding: 10px 24px;
+            transition: all 0.3s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--or) !important;
+            color: var(--noir) !important;
+        }
+
+        /* PAGES */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 70px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1547658719-da2b51169166?w=1800&q=80') center/cover no-repeat;
+            opacity: 0.1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to right, rgba(8,8,8,0.98) 40%, rgba(8,8,8,0.65) 100%),
+                radial-gradient(ellipse 70% 80% at 70% 50%, rgba(201,168,76,0.05) 0%, transparent 70%);
+        }
+
+        .hero-line {
+            position: absolute;
+            left: 70px;
+            top: 0; bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.4), transparent);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 780px;
+            padding-left: 50px;
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 44px;
+            animation: fadeUp 1s ease both;
+        }
+
+        .hero-eyebrow-line { width: 50px; height: 1px; background: var(--or); }
+
+        .hero-eyebrow span {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--or);
+            font-weight: 300;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(58px, 7vw, 94px);
+            font-weight: 300;
+            line-height: 1.02;
+            margin-bottom: 32px;
+            animation: fadeUp 1s 0.15s ease both;
+        }
+
+        .hero h1 em { font-style: italic; color: var(--or); font-weight: 300; }
+        .hero h1 strong { font-weight: 700; display: block; }
+
+        .hero-desc {
+            font-size: 16px;
+            font-weight: 300;
+            color: var(--gris-light);
+            line-height: 1.85;
+            max-width: 480px;
+            margin-bottom: 52px;
+            animation: fadeUp 1s 0.25s ease both;
+            letter-spacing: 0.3px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            animation: fadeUp 1s 0.35s ease both;
+        }
+
+        .btn-gold {
+            background: var(--or);
+            color: var(--noir);
+            padding: 16px 40px;
+            font-family: 'Jost', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            border: 1px solid var(--or);
+            cursor: pointer;
+        }
+
+        .btn-gold:hover { background: transparent; color: var(--or); }
+
+        .btn-outline {
+            border: 1px solid rgba(201,168,76,0.35);
+            color: var(--or-light);
+            padding: 16px 40px;
+            font-family: 'Jost', sans-serif;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-outline:hover { border-color: var(--or); color: var(--or); }
+
+        .hero-stats {
+            position: absolute;
+            right: 70px;
+            bottom: 80px;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            animation: fadeUp 1s 0.5s ease both;
+        }
+
+        .hero-stat { text-align: right; }
+
+        .hero-stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            font-weight: 600;
+            color: var(--or);
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gris-light);
+            margin-top: 4px;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 120px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            animation: fadeUp 1s 0.6s ease both;
+        }
+
+        .hero-scroll-dot {
+            width: 6px; height: 6px;
+            border: 1px solid var(--or);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .hero-scroll span {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gris);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.4; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(32px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* SECTIONS */
+        .section { padding: 120px 70px; }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--or);
+            margin-bottom: 18px;
+            font-weight: 300;
+        }
+
+        .section-label::before { content: ''; width: 30px; height: 1px; background: var(--or); }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(36px, 4vw, 56px);
+            font-weight: 300;
+            line-height: 1.1;
+            max-width: 500px;
+        }
+
+        .section-title em { font-style: italic; color: var(--or); }
+
+        /* SERVICES */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(201,168,76,0.1);
+            margin-top: 60px;
+        }
+
+        .service-card {
+            background: var(--noir-2);
+            padding: 52px 40px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.4s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 1px;
+            background: linear-gradient(to right, var(--or), transparent);
+            transition: width 0.5s ease;
+        }
+
+        .service-card:hover { background: #0f0f0f; }
+        .service-card:hover::after { width: 100%; }
+
+        .service-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 12px;
+            color: var(--or);
+            letter-spacing: 2px;
+            margin-bottom: 28px;
+            opacity: 0.6;
+        }
+
+        .service-icon-wrap {
+            width: 50px; height: 50px;
+            border: 1px solid rgba(201,168,76,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 26px;
+            transition: border-color 0.3s;
+        }
+
+        .service-card:hover .service-icon-wrap { border-color: var(--or); }
+
+        .service-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 25px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--gris-light);
+            line-height: 1.8;
+            margin-bottom: 26px;
+        }
+
+        .service-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            color: var(--or);
+            font-weight: 600;
+            margin-top: auto;
+        }
+
+        /* PROCESS */
+        .process-bg { background: var(--noir-2); border-top: 1px solid rgba(201,168,76,0.08); border-bottom: 1px solid rgba(201,168,76,0.08); }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            margin-top: 70px;
+        }
+
+        .process-step {
+            padding: 0 40px;
+            border-right: 1px solid rgba(201,168,76,0.1);
+        }
+
+        .process-step:first-child { padding-left: 0; }
+        .process-step:last-child { border-right: none; padding-right: 0; }
+
+        .process-step-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 76px;
+            font-weight: 700;
+            color: rgba(201,168,76,0.08);
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .process-step h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 21px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: var(--or-light);
+        }
+
+        .process-step p {
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--gris-light);
+            line-height: 1.8;
+        }
+
+        /* TARIFS */
+        .tarifs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 70px;
+        }
+
+        .tarif-card {
+            border: 1px solid rgba(201,168,76,0.15);
+            padding: 50px 38px;
+            position: relative;
+            transition: border-color 0.3s, transform 0.3s;
+            background: var(--noir-2);
+        }
+
+        .tarif-card:hover { border-color: var(--or); transform: translateY(-6px); }
+        .tarif-card.featured { border-color: var(--or); background: linear-gradient(135deg, #0e0e0e, #131108); }
+
+        .tarif-badge {
+            position: absolute;
+            top: -1px; right: 28px;
+            background: var(--or);
+            color: var(--noir);
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            font-weight: 500;
+        }
+
+        .tarif-name {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--or);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .tarif-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 54px;
+            font-weight: 600;
+            color: var(--blanc);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .tarif-price sup { font-size: 22px; vertical-align: super; color: var(--or); }
+
+        .tarif-period {
+            font-size: 12px;
+            color: var(--gris);
+            margin-bottom: 34px;
+            font-weight: 300;
+        }
+
+        .tarif-features {
+            list-style: none;
+            margin-bottom: 38px;
+        }
+
+        .tarif-features li {
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--gris-light);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tarif-features li::before { content: '✦'; color: var(--or); font-size: 8px; flex-shrink: 0; }
+
+        /* CONTACT */
+        .contact-wrap {
+            padding: 160px 70px 100px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 100px;
+            align-items: start;
+        }
+
+        .contact-info h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(42px, 5vw, 68px);
+            font-weight: 300;
+            line-height: 1.05;
+            margin-bottom: 28px;
+        }
+
+        .contact-info h2 em { font-style: italic; color: var(--or); }
+
+        .contact-info > p {
+            font-size: 15px;
+            font-weight: 300;
+            color: var(--gris-light);
+            line-height: 1.85;
+            margin-bottom: 50px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(201,168,76,0.08);
+        }
+
+        .contact-detail:last-child { border-bottom: none; }
+
+        .contact-detail-icon {
+            width: 44px; height: 44px;
+            border: 1px solid rgba(201,168,76,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        .contact-detail-text strong {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--or);
+            margin-bottom: 4px;
+            font-weight: 400;
+        }
+
+        .contact-detail-text span {
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--gris-light);
+        }
+
+        .contact-form-wrap {
+            background: var(--noir-2);
+            border: 1px solid rgba(201,168,76,0.15);
+            padding: 56px 48px;
+        }
+
+        .contact-form-wrap h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 400;
+            margin-bottom: 6px;
+        }
+
+        .contact-form-wrap > p {
+            font-size: 13px;
+            color: var(--gris);
+            margin-bottom: 38px;
+            font-weight: 300;
+        }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+        .form-field { margin-bottom: 20px; }
+
+        .form-field label {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--or);
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .form-field input,
+        .form-field textarea,
+        .form-field select {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(201,168,76,0.2);
+            padding: 12px 0;
+            color: var(--blanc);
+            font-family: 'Jost', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            outline: none;
+            transition: border-color 0.3s;
+            -webkit-appearance: none;
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus,
+        .form-field select:focus { border-bottom-color: var(--or); }
+
+        .form-field select option { background: #1c1c1c; }
+        .form-field textarea { height: 100px; resize: none; }
+
+        .form-submit {
+            width: 100%;
+            background: var(--or);
+            color: var(--noir);
+            border: none;
+            padding: 18px;
+            font-family: 'Jost', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 14px;
+        }
+
+        .form-submit:hover { background: var(--or-light); }
+
+        /* FAQ */
+        .faq-item { border-bottom: 1px solid rgba(201,168,76,0.1); }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 26px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            color: var(--blanc);
+        }
+
+        .faq-question span {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 21px;
+            font-weight: 400;
+        }
+
+        .faq-icon { color: var(--or); font-size: 20px; transition: transform 0.3s; flex-shrink: 0; margin-left: 20px; }
+
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .faq-answer.open { max-height: 200px; }
+
+        .faq-answer p {
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--gris-light);
+            line-height: 1.85;
+            padding-bottom: 26px;
+        }
+
+        /* DIVIDER */
+        .or-divider {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 0 70px;
+        }
+
+        .or-divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent); }
+        .or-divider-icon { color: var(--or); font-size: 12px; }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid rgba(201,168,76,0.1);
+            padding: 44px 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .footer-logo span { color: var(--or); }
+        footer p { font-size: 12px; color: var(--gris); font-weight: 300; letter-spacing: 0.5px; }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            nav { padding: 16px 24px; }
+            nav.scrolled { padding: 12px 24px; }
+            .nav-links { display: none; }
+
+            /* Hamburger */
+            .hamburger {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                cursor: pointer;
+                padding: 4px;
+            }
+            .hamburger span {
+                width: 24px; height: 1.5px;
+                background: var(--or);
+                display: block;
+                transition: all 0.3s;
+            }
+
+            /* Mobile menu */
+            #mobile-menu {
+                position: fixed;
+                top: 56px; left: 0; right: 0;
+                background: rgba(8,8,8,0.98);
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid rgba(201,168,76,0.15);
+                flex-direction: column;
+                padding: 20px 24px;
+                gap: 0;
+                z-index: 99;
+                display: none;
+            }
+
+            #mobile-menu a {
+                color: var(--gris-light);
+                text-decoration: none;
+                font-size: 13px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                padding: 16px 0;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                display: block;
+                transition: color 0.3s;
+                cursor: pointer;
+            }
+
+            #mobile-menu a:last-child {
+                border-bottom: none;
+                color: var(--or);
+                margin-top: 8px;
+            }
+
+            #mobile-menu a:hover { color: var(--or); }
+
+            /* Hero mobile */
+            .hero { padding: 0 20px !important; min-height: 100svh !important; }
+            .hero-content { padding-left: 0 !important; max-width: 100% !important; padding-top: 80px !important; }
+            .hero h1 { font-size: 50px !important; line-height: 1.0 !important; }
+            .hero-desc { font-size: 14px !important; max-width: 100% !important; }
+            .hero-actions { flex-direction: column !important; gap: 10px !important; width: 100% !important; }
+            .btn-gold, .btn-outline { text-align: center !important; padding: 14px 20px !important; font-size: 10px !important; width: 100% !important; display: block !important; box-sizing: border-box !important; }
+            .hero-stats { display: none !important; }
+            .hero-scroll { display: none !important; }
+            .hero-line { display: none !important; }
+
+            /* SECTIONS */
+            .section { padding: 60px 20px !important; }
+            .section-title { font-size: 32px !important; max-width: 100% !important; }
+
+            /* SERVICES — FORCE 1 COLONNE */
+            .services-grid { grid-template-columns: 1fr !important; }
+            .service-card { padding: 28px 20px !important; }
+            .service-card h3 { font-size: 20px !important; }
+
+            /* PROCESS */
+            .process-steps { grid-template-columns: 1fr !important; gap: 0 !important; margin-top: 40px !important; }
+            .process-step { padding: 20px 0 20px 18px !important; border-right: none !important; border-left: 1px solid rgba(201,168,76,0.2) !important; border-bottom: 1px solid rgba(201,168,76,0.05) !important; }
+            .process-step:last-child { border-bottom: none !important; }
+            .process-step-num { font-size: 44px !important; margin-bottom: 8px !important; }
+
+            /* TARIFS */
+            .tarifs-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
+            .tarif-card { padding: 30px 20px !important; }
+            .tarif-price { font-size: 44px !important; }
+
+            /* RÉALISATIONS — empile les colonnes */
+            .real-card { grid-template-columns: 1fr !important; }
+
+            /* CONTACT */
+            .contact-wrap { padding: 90px 20px 50px !important; }
+            .contact-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+            .contact-form-wrap { padding: 28px 18px !important; }
+            .form-row { grid-template-columns: 1fr !important; }
+            .contact-info h2 { font-size: 34px !important; }
+
+            /* FAQ */
+            .faq-question span { font-size: 15px !important; }
+            #tab-faq, #tab-contact { padding: 12px 12px !important; font-size: 9px !important; letter-spacing: 1px !important; }
+
+            /* FOOTER */
+            footer { flex-direction: column !important; text-align: center !important; padding: 24px 20px !important; gap: 6px !important; }
+            .footer-logo { font-size: 15px !important; }
+            footer p { font-size: 11px !important; }
+        }
+
+        @media (min-width: 769px) {
+            .hamburger { display: none !important; }
+            #mobile-menu { display: none !important; }
+        }
+
+        /* Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="nav-logo" onclick="showPage('accueil')">Web<span>Studio</span> · Rennes</div>
+        <ul class="nav-links">
+            <li><a onclick="showPage('accueil')">Accueil</a></li>
+            <li><a onclick="showPage('services')">Services</a></li>
+            <li><a onclick="showPage('process')">Comment ça marche</a></li>
+            <li><a onclick="showPage('tarifs')">Tarifs</a></li>
+            <li><a onclick="showPage('contact')" class="nav-cta">Devis gratuit</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- MENU MOBILE -->
+    <div id="mobile-menu">
+        <a onclick="showPage('accueil'); closeMobile()">Accueil</a>
+        <a onclick="showPage('services'); closeMobile()">Services</a>
+        <a onclick="showPage('process'); closeMobile()">Comment ça marche</a>
+        <a onclick="showPage('tarifs'); closeMobile()">Tarifs</a>
+        <a onclick="showPage('contact'); closeMobile()">Devis gratuit →</a>
+    </div>
+
+    <!-- PAGE ACCUEIL -->
+    <div class="page active" id="page-accueil">
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-line"></div>
+            <div class="hero-content">
+                <div class="hero-eyebrow">
+                    <div class="hero-eyebrow-line"></div>
+                    <span>Développeur web freelance · Rennes</span>
+                </div>
+                <h1>Des sites web<br><em>qui inspirent</em><br><strong>confiance.</strong></h1>
+                <p class="hero-desc">Je crée des sites vitrines professionnels pour les commerces, restaurants et artisans de Rennes. Livré en 5 jours. <span style="color:var(--or)">Vous payez uniquement après validation.</span></p>
+                <div class="hero-actions">
+                    <div class="btn-gold" onclick="showPage('contact')">Demander un devis gratuit</div>
+                    <div class="btn-outline" onclick="showPage('services')">Découvrir les services</div>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat"><div class="hero-stat-num">5j</div><div class="hero-stat-label">Délai garanti</div></div>
+                <div class="hero-stat"><div class="hero-stat-num">200€</div><div class="hero-stat-label">À partir de</div></div>
+                <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-label">Satisfaction</div></div>
+            </div>
+            <div class="hero-scroll"><div class="hero-scroll-dot"></div><span>Défiler pour explorer</span></div>
+        </section>
+
+        <!-- BANDE GARANTIES -->
+        <div style="background: linear-gradient(90deg, #0e0e0e, #141208, #0e0e0e); border-top:1px solid rgba(201,168,76,0.15); border-bottom:1px solid rgba(201,168,76,0.15); padding: 28px 70px; display:flex; justify-content:center; gap:60px; flex-wrap:wrap;">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span style="color:var(--or); font-size:18px;">✦</span>
+                <span style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--blanc); font-weight:300;">Devis gratuit sous 24h</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span style="color:var(--or); font-size:18px;">✦</span>
+                <span style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--blanc); font-weight:300;">Paiement après validation</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span style="color:var(--or); font-size:18px;">✦</span>
+                <span style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--blanc); font-weight:300;">Livraison en 5–7 jours</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span style="color:var(--or); font-size:18px;">✦</span>
+                <span style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--blanc); font-weight:300;">Sans engagement</span>
+            </div>
+        </div>
+
+        <!-- SERVICES -->
+        <section class="section">
+            <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:50px;" class="reveal">
+                <div>
+                    <div class="section-label">Ce que je propose</div>
+                    <h2 class="section-title">Des sites pensés pour <em>convertir</em></h2>
+                </div>
+                <div class="btn-outline" onclick="showPage('services')" style="white-space:nowrap; align-self:flex-end">Voir tous les services →</div>
+            </div>
+            <div class="services-grid reveal">
+                <div class="service-card">
+                    <div class="service-num">01</div>
+                    <div class="service-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--or)">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>
+                        </svg>
+                    </div>
+                    <h3>Site vitrine</h3>
+                    <p>Accueil, présentation, horaires, contact. Un site complet qui représente votre activité avec élégance et professionnalisme.</p>
+                    <div class="service-price">200€ <span>à partir de</span></div>
+                </div>
+                <div class="service-card">
+                    <div class="service-num">02</div>
+                    <div class="service-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--or)">
+                            <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                        </svg>
+                    </div>
+                    <h3>Maintenance</h3>
+                    <p>Mises à jour, modifications de textes et photos, corrections. Votre site reste toujours parfait, sans effort de votre part.</p>
+                    <div class="service-price">20€ <span>/ mois</span></div>
+                </div>
+                <div class="service-card">
+                    <div class="service-num">03</div>
+                    <div class="service-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--or)">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </div>
+                    <h3>Livraison express</h3>
+                    <p>Votre site est en ligne en 5 à 7 jours ouvrés. Processus clair, communication fluide, résultat professionnel.</p>
+                    <div class="service-price">5–7 <span>jours</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAIEMENT & PROCESSUS -->
+        <section class="section process-bg">
+            <div class="section-label reveal">Transparence totale</div>
+            <h2 class="section-title reveal">Comment ça se passe, <em>étape par étape</em></h2>
+            <div class="process-steps reveal" style="margin-top:60px">
+                <div class="process-step">
+                    <div class="process-step-num">01</div>
+                    <h3>Devis gratuit</h3>
+                    <p>Vous m'écrivez, je vous réponds sous 24h avec un devis clair et détaillé. <strong style="color:var(--or-light)">Aucun frais à cette étape.</strong></p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-num">02</div>
+                    <h3>Je crée votre site</h3>
+                    <p>En 5 à 7 jours, vous recevez un aperçu complet de votre site pour validation. <strong style="color:var(--or-light)">Toujours sans payer.</strong></p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-num">03</div>
+                    <h3>Vous validez</h3>
+                    <p>On ajuste ensemble jusqu'à ce que vous soyez satisfait à 100%. <strong style="color:var(--or-light)">Le paiement intervient ici.</strong></p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-num">04</div>
+                    <h3>Mise en ligne</h3>
+                    <p>Votre site est publié sur internet. Je reste disponible 30 jours pour toute question ou ajustement.</p>
+                </div>
+            </div>
+
+            <!-- ENCART PAIEMENT -->
+            <div style="margin-top:60px; background:linear-gradient(135deg, #131108, #0e0e08); border:1px solid rgba(201,168,76,0.3); padding:44px 50px; display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;" class="reveal">
+                <div>
+                    <div style="font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--or); margin-bottom:16px; font-weight:300;">💳 Quand est-ce que je paie ?</div>
+                    <p style="font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:300; line-height:1.3; margin-bottom:16px;">Vous payez <em>seulement</em> quand le site vous convient.</p>
+                    <p style="font-size:13px; font-weight:300; color:var(--gris-light); line-height:1.8;">Pas d'acompte, pas de surprise. Je crée d'abord, vous validez, puis vous réglez. Le paiement se fait par virement bancaire ou PayPal, en une seule fois.</p>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:16px;">
+                    <div style="display:flex; align-items:center; gap:16px; padding:16px 20px; background:rgba(201,168,76,0.06); border-left:2px solid var(--or);">
+                        <span style="color:var(--or); font-size:20px;">✓</span>
+                        <span style="font-size:13px; font-weight:300; color:var(--blanc);">Zéro acompte demandé</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:16px; padding:16px 20px; background:rgba(201,168,76,0.06); border-left:2px solid var(--or);">
+                        <span style="color:var(--or); font-size:20px;">✓</span>
+                        <span style="font-size:13px; font-weight:300; color:var(--blanc);">Paiement après validation uniquement</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:16px; padding:16px 20px; background:rgba(201,168,76,0.06); border-left:2px solid var(--or);">
+                        <span style="color:var(--or); font-size:20px;">✓</span>
+                        <span style="font-size:13px; font-weight:300; color:var(--blanc);">Virement bancaire ou PayPal</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:16px; padding:16px 20px; background:rgba(201,168,76,0.06); border-left:2px solid var(--or);">
+                        <span style="color:var(--or); font-size:20px;">✓</span>
+                        <span style="font-size:13px; font-weight:300; color:var(--blanc);">Prix fixe, aucun frais caché</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RÉALISATIONS -->
+        <section class="section">
+            <div style="margin-bottom:50px;" class="reveal">
+                <div class="section-label">Réalisations</div>
+                <h2 class="section-title">Deux exemples <em>concrets</em></h2>
+            </div>
+
+            <!-- Menuisier -->
+            <div style="border: 1px solid rgba(201,168,76,0.2); overflow:hidden; display:grid; grid-template-columns:1fr 1.2fr; margin-bottom:20px;" class="reveal">
+                <div style="background: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=700&q=80') center/cover; min-height:320px; position:relative;">
+                    <div style="position:absolute; inset:0; background:rgba(44,31,14,0.55);"></div>
+                    <div style="position:absolute; bottom:20px; left:20px; background:rgba(201,168,76,0.2); border:1px solid rgba(201,168,76,0.4); padding:8px 14px; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--or);">En ligne</div>
+                </div>
+                <div style="padding:55px; background:var(--noir-2);">
+                    <div class="section-label" style="margin-bottom:16px">Menuisier ébéniste · Rennes</div>
+                    <h3 style="font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:400; margin-bottom:14px;">Atelier Dubois</h3>
+                    <p style="font-size:14px; font-weight:300; color:var(--gris-light); line-height:1.8; margin-bottom:10px;">✦ Hero splitté bois & typographie élégante</p>
+                    <p style="font-size:14px; font-weight:300; color:var(--gris-light); line-height:1.8; margin-bottom:10px;">✦ Galerie de réalisations interactive</p>
+                    <p style="font-size:14px; font-weight:300; color:var(--gris-light); line-height:1.8; margin-bottom:30px;">✦ 6 services détaillés + formulaire de devis</p>
+                    <a href="https://webstudio-rennes.github.io/atelier-dubois/" target="_blank" class="btn-gold" style="font-size:10px; padding:14px 28px;">Voir le site en ligne →</a>
+                </div>
+            </div>
+
+            <!-- Restaurant -->
+            <div style="border: 1px solid rgba(201,168,76,0.2); overflow:hidden; display:grid; grid-template-columns:1.2fr 1fr;" class="reveal">
+                <div style="padding:55px; background:var(--noir-2);">
+                    <div class="section-label" style="margin-bottom:16px">Restaurant gastronomique · Rennes</div>
+                    <h3 style="font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:400; margin-bottom:14px;">Braise</h3>
+                    <p style="font-size:14px; font-weight:300; color:var(--gris-light); line-height:1.8; margin-bottom:10px;">✦ Hero immersif plein écran avec effet parallaxe</p>
+                    <p style="font-size:14px; font-weight:300; color:var(--gris-light); line-height:1.8; margin-bottom:10px;">✦ Carte interactive avec onglets (Entrées / Plats / Desserts)</p>
+                    <p style="font-size:14px; font-weight:300; color:var(--gris-light); line-height:1.8; margin-bottom:30px;">✦ Section réservation + infos pratiques complètes</p>
+                    <a href="https://webstudio-rennes.github.io/braise-restaurant/" target="_blank" class="btn-gold" style="font-size:10px; padding:14px 28px;">Voir le site en ligne →</a>
+                </div>
+                <div style="background: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=80') center/cover; min-height:320px; position:relative;">
+                    <div style="position:absolute; inset:0; background:rgba(12,12,12,0.5);"></div>
+                    <div style="position:absolute; bottom:20px; right:20px; background:rgba(201,168,76,0.2); border:1px solid rgba(201,168,76,0.4); padding:8px 14px; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--or);">En ligne</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section style="padding:100px 70px; text-align:center; background:linear-gradient(135deg, #0a0a08, #0e0e08); border-top:1px solid rgba(201,168,76,0.1);">
+            <div style="font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--or); margin-bottom:24px;" class="reveal">✦ Prêt à commencer ?</div>
+            <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(32px,4vw,56px); font-weight:300; line-height:1.1; margin-bottom:20px;" class="reveal">Votre commerce mérite un site<br><em>à la hauteur de votre ambition.</em></p>
+            <p style="font-size:14px; font-weight:300; color:var(--gris-light); margin-bottom:44px;" class="reveal">Devis gratuit · Réponse sous 24h · Paiement après validation</p>
+            <div style="display:flex; gap:16px; justify-content:center;" class="reveal">
+                <div class="btn-gold" onclick="showPage('contact')" style="display:inline-block">Demander mon devis gratuit</div>
+                <div class="btn-outline" onclick="showPage('tarifs')" style="display:inline-block">Voir les tarifs</div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-logo">Web<span>Studio</span> · Rennes</div>
+            <p>© 2026 — Tous droits réservés</p>
+            <p>timothe.webdesign@gmail.com</p>
+        </footer>
+    </div>
+
+    <!-- PAGE SERVICES -->
+    <div class="page" id="page-services">
+        <section class="section" style="padding-top:160px">
+            <div class="section-label reveal">Services</div>
+            <h1 class="section-title reveal" style="max-width:600px; margin-bottom:16px;">Tout ce dont votre <em>commerce</em> a besoin</h1>
+            <p style="font-size:15px; font-weight:300; color:var(--gris-light); max-width:520px; line-height:1.85; margin-bottom:0;" class="reveal">Des prestations claires, des prix fixes, un résultat professionnel garanti.</p>
+            <div class="services-grid reveal" style="grid-template-columns: repeat(3,1fr)">
+                <div class="service-card">
+                    <div class="service-num">01</div>
+                    <div class="service-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--or)"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                    </div>
+                    <h3>Site vitrine essentiel</h3>
+                    <p>Page d'accueil percutante, présentation de votre activité, horaires, informations pratiques et formulaire de contact. Le minimum vital pour exister en ligne.</p>
+                    <div class="service-price">200€ <span>paiement unique</span></div>
+                </div>
+                <div class="service-card">
+                    <div class="service-num">02</div>
+                    <div class="service-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--or)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <h3>Site vitrine complet</h3>
+                    <p>Tout l'essentiel + page dédiée produits ou services, galerie photo, section avis clients, Google Maps et formulaire de réservation avancé.</p>
+                    <div class="service-price">350€ <span>paiement unique</span></div>
+                </div>
+                <div class="service-card">
+                    <div class="service-num">03</div>
+                    <div class="service-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--or)"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                    </div>
+                    <h3>Maintenance mensuelle</h3>
+                    <p>Mises à jour du contenu, corrections techniques, sauvegarde régulière. Vous vous concentrez sur votre métier, je m'occupe de votre site.</p>
+                    <div class="service-price">20€ <span>/ mois</span></div>
+                </div>
+                <div class="service-card">
+                    <div class="service-num">04</div>
+                    <div class="service-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--or)"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+                    </div>
+                    <h3>Design responsive</h3>
+                    <p>Votre site s'adapte parfaitement à tous les écrans. Aujourd'hui 70% des visites se font sur mobile — soyez prêt.</p>
+                    <div class="service-price">Inclus <span>dans tous les forfaits</span></div>
+                </div>
+                <div class="service-card">
+                    <div class="service-num">05</div>
+                    <div class="service-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--or)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    </div>
+                    <h3>Optimisation SEO</h3>
+                    <p>Structure optimisée pour Google, balises correctement renseignées, vitesse de chargement soignée. Pour que vos clients vous trouvent.</p>
+                    <div class="service-price">Inclus <span>dans tous les forfaits</span></div>
+                </div>
+                <div class="service-card">
+                    <div class="service-num">06</div>
+                    <div class="service-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--or)"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                    </div>
+                    <h3>Support 30 jours</h3>
+                    <p>Petites modifications urgentes, questions, conseils — je reste disponible par email et réponds tous les jours. Vous n'êtes jamais seul.</p>
+                    <div class="service-price">Inclus <span>après livraison</span></div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="footer-logo">Web<span>Studio</span> · Rennes</div>
+            <p>© 2026 — Tous droits réservés</p>
+            <p>timothe.webdesign@gmail.com</p>
+        </footer>
+    </div>
+
+    <!-- PAGE PROCESS -->
+    <div class="page" id="page-process">
+        <section class="section" style="padding-top:160px">
+            <div class="section-label reveal">Comment ça marche</div>
+            <h1 class="section-title reveal" style="max-width:600px; margin-bottom:16px;">Simple, <em>transparent</em>, efficace</h1>
+            <p style="font-size:15px; font-weight:300; color:var(--gris-light); max-width:520px; line-height:1.85;" class="reveal">De notre premier échange à la mise en ligne — sans surprise, sans jargon.</p>
+            <div class="process-steps reveal" style="margin-top:80px">
+                <div class="process-step">
+                    <div class="process-step-num">01</div>
+                    <h3>Premier contact</h3>
+                    <p>Vous m'envoyez un message avec votre activité et vos besoins. Je vous réponds sous 24h avec un devis clair. Zéro frais, zéro engagement.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-num">02</div>
+                    <h3>On définit ensemble</h3>
+                    <p>On discute de vos préférences : couleurs, style, contenu. Je vous pose les bonnes questions pour créer un site qui vous ressemble vraiment.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-num">03</div>
+                    <h3>Je crée votre site</h3>
+                    <p>En 5 à 7 jours, je conçois votre site. Vous recevez un aperçu complet pour valider chaque détail avant la mise en ligne.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-num">04</div>
+                    <h3>Mise en ligne</h3>
+                    <p>Votre site est publié sur internet. Je reste disponible 30 jours pour toute modification ou question.</p>
+                </div>
+            </div>
+
+            <!-- FAQ + CONTACT ONGLETS -->
+            <div style="margin-top:100px">
+                <div class="section-label reveal">Vos questions</div>
+                <h2 class="section-title reveal" style="margin-bottom:40px">Tout ce que vous <em>voulez savoir</em></h2>
+
+                <!-- Onglets -->
+                <div style="display:flex; gap:0; border-bottom:1px solid rgba(201,168,76,0.15); margin-bottom:0;" class="reveal">
+                    <button onclick="switchFaqTab(this,'faq')" id="tab-faq" style="background:none; border:none; border-bottom:2px solid var(--or); padding:14px 28px; font-family:'Jost',sans-serif; font-size:11px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:var(--or); cursor:pointer; transition:all 0.3s;">Questions fréquentes</button>
+                    <button onclick="switchFaqTab(this,'contact')" id="tab-contact" style="background:none; border:none; border-bottom:2px solid transparent; padding:14px 28px; font-family:'Jost',sans-serif; font-size:11px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:var(--gris-light); cursor:pointer; transition:all 0.3s;">Poser une question</button>
+                </div>
+
+                <!-- FAQ -->
+                <div id="panel-faq" class="reveal">
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)"><span>Est-ce que je dois payer avant de voir le résultat ?</span><div class="faq-icon">+</div></button>
+                        <div class="faq-answer"><p>Non, absolument pas. Voici comment ça se passe : je crée votre site, puis je vous envoie un lien d'aperçu complet avant tout paiement. Vous le consultez tranquillement, on ajuste ensemble ce qui ne vous convient pas, et vous réglez seulement quand vous êtes satisfait à 100%. Aucun risque pour vous.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)"><span>Combien de temps pour avoir mon site en ligne ?</span><div class="faq-icon">+</div></button>
+                        <div class="faq-answer"><p>Entre 5 et 7 jours ouvrés à partir du moment où vous m'avez transmis vos informations (textes, photos, couleurs souhaitées). Ce délai est tenu à chaque projet. Si vous avez une échéance particulière (ouverture, événement), dites-le moi dès le début et on s'organise en conséquence.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)"><span>Mon site fonctionnera-t-il bien sur smartphone ?</span><div class="faq-icon">+</div></button>
+                        <div class="faq-answer"><p>Oui, c'est une priorité absolue. Aujourd'hui plus de 70% des visites sur un site vitrine se font depuis un téléphone. Chaque site que je crée est entièrement responsive : il s'adapte automatiquement à tous les écrans (smartphone, tablette, ordinateur) et s'affiche parfaitement dans tous les cas. C'est inclus dans tous les forfaits, sans surcoût.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)"><span>Est-ce que mon site sera visible sur Google ?</span><div class="faq-icon">+</div></button>
+                        <div class="faq-answer"><p>Votre site sera indexé par Google et donc trouvable. Je soigne la structure SEO de base sur chaque projet : balises titre et description, structure des pages, vitesse de chargement. Pour remonter en première position sur des mots-clés concurrentiels, cela demande du contenu régulier et du temps — mais votre site sera déjà bien mieux positionné qu'un site fait à la va-vite.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)"><span>Et si je veux modifier mon site après la livraison ?</span><div class="faq-icon">+</div></button>
+                        <div class="faq-answer"><p>Deux options selon vos besoins. La maintenance mensuelle à 20€/mois vous permet de me faire autant de demandes de modifications que vous souhaitez (textes, photos, horaires, prix…) et je m'en occupe sous 48h. Sans abonnement, chaque modification ponctuelle est facturée 20€. Pendant les 30 jours qui suivent la livraison, les petits ajustements sont inclus et gratuits.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)"><span>Je n'ai pas de photos professionnelles, c'est un problème ?</span><div class="faq-icon">+</div></button>
+                        <div class="faq-answer"><p>Pas du tout. J'utilise des banques d'images professionnelles gratuites comme Unsplash ou Pexels, qui proposent des milliers de photos haute résolution adaptées à chaque secteur d'activité. Le résultat est propre et professionnel. Si vous avez vos propres photos (même prises avec un smartphone récent), je peux aussi les intégrer et les recadrer pour qu'elles rendent bien sur le site.</p></div>
+                    </div>
+                </div>
+
+                <!-- ONGLET QUESTION PERSO -->
+                <div id="panel-contact" style="display:none; padding-top:40px;" class="reveal">
+                    <p style="font-size:15px; font-weight:300; color:var(--gris-light); line-height:1.85; margin-bottom:36px;">Une question spécifique sur votre projet ? Écrivez-moi directement, je vous réponds personnellement sous 24h.</p>
+                    <div style="background:var(--noir-2); border:1px solid rgba(201,168,76,0.15); padding:44px;">
+                        <form id="question-form" method="post" action="javascript:void(0)">
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                                <div class="form-field"><label>Votre prénom</label><input type="text" name="name" placeholder="Jean" required></div>
+                                <div class="form-field"><label>Votre email</label><input type="email" name="email" placeholder="jean@email.fr" required></div>
+                            </div>
+                            <div class="form-field"><label>Votre question</label><textarea name="message" style="height:130px;" placeholder="Posez-moi votre question, je vous réponds personnellement sous 24h..." required></textarea></div>
+                            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-top:8px;">
+                                <p style="font-size:12px; color:var(--gris); font-weight:300;">Réponse garantie sous 24h · timothe.webdesign@gmail.com</p>
+                                <button type="submit" class="form-submit" style="width:auto; padding:16px 36px;">Envoyer ma question</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="footer-logo">Web<span>Studio</span> · Rennes</div>
+            <p>© 2026 — Tous droits réservés</p>
+            <p>timothe.webdesign@gmail.com</p>
+        </footer>
+    </div>
+
+    <!-- PAGE TARIFS -->
+    <div class="page" id="page-tarifs">
+        <section class="section" style="padding-top:160px">
+            <div class="section-label reveal">Tarifs</div>
+            <h1 class="section-title reveal" style="max-width:600px; margin-bottom:14px;">Des prix <em>clairs</em>, sans surprise</h1>
+            <p style="font-size:15px; font-weight:300; color:var(--gris-light); line-height:1.85;" class="reveal">Tout est inclus dans le prix affiché. Pas de frais cachés, pas de mauvaise surprise.</p>
+            <div class="tarifs-grid reveal">
+                <div class="tarif-card">
+                    <div class="tarif-name">Essentiel</div>
+                    <div class="tarif-price"><sup>€</sup>200</div>
+                    <div class="tarif-period">Paiement unique · livré en 5–7 jours</div>
+                    <ul class="tarif-features">
+                        <li>Page d'accueil professionnelle</li>
+                        <li>Section présentation & activité</li>
+                        <li>Horaires & informations pratiques</li>
+                        <li>Formulaire de contact</li>
+                        <li>Design responsive (mobile)</li>
+                        <li>SEO de base inclus</li>
+                        <li>30 jours de support inclus</li>
+                    </ul>
+                    <div class="btn-outline" onclick="showPage('contact')" style="display:block; text-align:center;">Choisir ce forfait</div>
+                </div>
+                <div class="tarif-card featured">
+                    <div class="tarif-badge">Le plus choisi</div>
+                    <div class="tarif-name">Complet</div>
+                    <div class="tarif-price"><sup>€</sup>350</div>
+                    <div class="tarif-period">Paiement unique · livré en 5–7 jours</div>
+                    <ul class="tarif-features">
+                        <li>Tout le forfait Essentiel</li>
+                        <li>Page Menu / Services dédiée</li>
+                        <li>Galerie photo</li>
+                        <li>Section avis clients</li>
+                        <li>Intégration Google Maps</li>
+                        <li>Formulaire de réservation avancé</li>
+                        <li>Animations & interactions</li>
+                    </ul>
+                    <div class="btn-gold" onclick="showPage('contact')" style="display:block; text-align:center;">Choisir ce forfait</div>
+                </div>
+                <div class="tarif-card">
+                    <div class="tarif-name">Maintenance</div>
+                    <div class="tarif-price"><sup>€</sup>20</div>
+                    <div class="tarif-period">Par mois · sans engagement</div>
+                    <ul class="tarif-features">
+                        <li>Modifications textes & photos</li>
+                        <li>Mises à jour régulières</li>
+                        <li>Sauvegarde mensuelle</li>
+                        <li>Corrections techniques</li>
+                        <li>Support prioritaire</li>
+                        <li>Résiliation à tout moment</li>
+                    </ul>
+                    <div class="btn-outline" onclick="showPage('contact')" style="display:block; text-align:center;">Souscrire</div>
+                </div>
+            </div>
+            <div style="margin-top:50px; padding:40px; border:1px solid rgba(201,168,76,0.15); text-align:center; background:var(--noir-2);" class="reveal">
+                <p style="font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:300; margin-bottom:10px;">Un projet particulier ou un budget différent ?</p>
+                <p style="font-size:14px; font-weight:300; color:var(--gris-light); margin-bottom:28px;">Chaque projet est unique. Contactez-moi et on trouve ensemble la meilleure solution.</p>
+                <div class="btn-gold" onclick="showPage('contact')" style="display:inline-block">Me contacter →</div>
+            </div>
+        </section>
+        <footer>
+            <div class="footer-logo">Web<span>Studio</span> · Rennes</div>
+            <p>© 2026 — Tous droits réservés</p>
+            <p>timothe.webdesign@gmail.com</p>
+        </footer>
+    </div>
+
+    <!-- PAGE CONTACT -->
+    <div class="page" id="page-contact">
+        <div class="contact-wrap">
+            <div class="contact-grid">
+                <div class="contact-info reveal">
+                    <div class="section-label" style="margin-bottom:24px">Contact</div>
+                    <h2>Parlons de votre <em>projet</em></h2>
+                    <p>Vous avez un commerce à Rennes et vous n'avez pas encore de site ? Ou votre site actuel ne vous ressemble plus ? Écrivez-moi — je vous réponds sous 24h avec un devis gratuit.</p>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--or)"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        </div>
+                        <div class="contact-detail-text"><strong>Email</strong><span>timothe.webdesign@gmail.com</span></div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--or)"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <div class="contact-detail-text"><strong>Localisation</strong><span>Rennes, Bretagne</span></div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--or)"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <div class="contact-detail-text"><strong>Délai de réponse</strong><span>Sous 24h, tous les jours</span></div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--or)"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <div class="contact-detail-text"><strong>Devis</strong><span>Gratuit & sans engagement</span></div>
+                    </div>
+                </div>
+                <div class="contact-form-wrap reveal">
+                    <h3>Demande de devis gratuit</h3>
+                    <p>Réponse garantie sous 24h</p>
+                    <form id="devis-form" method="post" action="javascript:void(0)">
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Votre prénom</label>
+                                <input type="text" name="name" placeholder="Jean" required>
+                            </div>
+
+                            <div class="form-field">
+                                <label>Votre email</label>
+                                <input type="email" name="email" placeholder="jean@email.fr" required>
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <label>Votre message</label>
+                            <textarea name="message" placeholder="Décrivez votre activité et ce que vous recherchez..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="form-submit">Envoyer ma demande de devis</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="footer-logo">Web<span>Studio</span> · Rennes</div>
+            <p>© 2026 — Tous droits réservés</p>
+            <p>timothe.webdesign@gmail.com</p>
+        </footer>
+    </div>
+
+    <script>
+        function showPage(name) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + name).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(initReveal, 120);
+        }
+
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        function initReveal() {
+            const reveals = document.querySelectorAll('.page.active .reveal');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach((entry, i) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.08 });
+            reveals.forEach(el => { el.classList.remove('visible'); observer.observe(el); });
+        }
+
+        initReveal();
+
+        function toggleFaq(btn) {
+            const answer = btn.nextElementSibling;
+            const icon = btn.querySelector('.faq-icon');
+            const isOpen = answer.classList.contains('open');
+            document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+            document.querySelectorAll('.faq-icon').forEach(i => i.textContent = '+');
+            if (!isOpen) { answer.classList.add('open'); icon.textContent = '−'; }
+        }
+
+        function switchFaqTab(btn, panel) {
+            document.getElementById('panel-faq').style.display = panel === 'faq' ? 'block' : 'none';
+            document.getElementById('panel-contact').style.display = panel === 'contact' ? 'block' : 'none';
+            document.getElementById('tab-faq').style.borderBottomColor = panel === 'faq' ? 'var(--or)' : 'transparent';
+            document.getElementById('tab-faq').style.color = panel === 'faq' ? 'var(--or)' : 'var(--gris-light)';
+            document.getElementById('tab-contact').style.borderBottomColor = panel === 'contact' ? 'var(--or)' : 'transparent';
+            document.getElementById('tab-contact').style.color = panel === 'contact' ? 'var(--or)' : 'var(--gris-light)';
+        }
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if(hamburger) {
+            hamburger.addEventListener('click', () => {
+                mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+            });
+        }
+
+        function closeMobile() {
+            document.getElementById('mobile-menu').style.display = 'none';
+        }
+    </script>
+    <script>
+        const EMAILJS_PUBLIC_KEY = "9NVlJWp_qi8eWXPst";
+        const EMAILJS_SERVICE_ID = "service_ppx69qk";
+        const EMAILJS_TEMPLATE_ID = "template_385cs1d";
+        const EMAILJS_API_URL = "https://api.emailjs.com/api/v1.0/email/send";
+
+        function setupEmailForm(formId, defaultButtonText) {
+            const form = document.getElementById(formId);
+            if (!form) return;
+
+            form.addEventListener("submit", async function(e) {
+                e.preventDefault();
+
+                const submitButton = this.querySelector(".form-submit");
+                submitButton.textContent = "Envoi en cours...";
+                submitButton.disabled = true;
+
+                const formData = new FormData(this);
+                const payload = {
+                    service_id: EMAILJS_SERVICE_ID,
+                    template_id: EMAILJS_TEMPLATE_ID,
+                    user_id: EMAILJS_PUBLIC_KEY,
+                    template_params: {
+                        name: formData.get("name"),
+                        email: formData.get("email"),
+                        message: formData.get("message")
+                    }
+                };
+
+                try {
+                    const response = await fetch(EMAILJS_API_URL, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const resultText = await response.text();
+
+                    if (!response.ok) {
+                        throw new Error(resultText || "Erreur inconnue EmailJS");
+                    }
+
+                    submitButton.textContent = "Message envoyé";
+                    submitButton.style.background = "#2d5a3d";
+                    submitButton.style.color = "#ffffff";
+                    this.reset();
+                } catch (err) {
+                    alert("Le message n\'a pas pu être envoyé. Réessayez ou contactez-moi directement à timothe.webdesign@gmail.com.");
+                }
+
+                if (submitButton.textContent !== "Message envoyé") {
+                    submitButton.textContent = defaultButtonText;
+                    submitButton.disabled = false;
+                }
+            });
+        }
+
+        setupEmailForm("devis-form", "Envoyer ma demande de devis");
+        setupEmailForm("question-form", "Envoyer ma question");
+    </script>
+</body>
+</html>
