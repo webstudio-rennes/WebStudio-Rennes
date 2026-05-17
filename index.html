@@ -849,6 +849,162 @@
         }
 
         .reveal.visible { opacity: 1; transform: translateY(0); }
+        /* ── CALCULATRICE DEVIS ── */
+        .devis-calc {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .devis-section-label {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--or);
+            margin-bottom: 14px;
+            font-weight: 300;
+        }
+
+        .devis-option {
+            border: 1px solid rgba(201,168,76,0.15);
+            padding: 18px 20px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .devis-option:hover { border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.04); }
+
+        .devis-option.selected {
+            border-color: var(--or);
+            background: rgba(201,168,76,0.08);
+        }
+
+        .devis-option-name {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--blanc);
+            margin-bottom: 3px;
+        }
+
+        .devis-option-desc {
+            font-size: 12px;
+            color: var(--gris-light);
+        }
+
+        .devis-option-prix {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            color: var(--or);
+            font-weight: 600;
+            white-space: nowrap;
+            margin-left: 16px;
+        }
+
+        .devis-check {
+            border: 1px solid rgba(201,168,76,0.1);
+            padding: 16px 18px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .devis-check:hover { border-color: rgba(201,168,76,0.35); }
+
+        .devis-check.checked {
+            border-color: var(--or);
+            background: rgba(201,168,76,0.06);
+        }
+
+        .devis-check-box {
+            width: 20px; height: 20px;
+            border: 1px solid rgba(201,168,76,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: var(--or);
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .devis-check.checked .devis-check-box {
+            background: var(--or);
+            color: var(--noir);
+            border-color: var(--or);
+        }
+
+        .devis-total-box {
+            background: linear-gradient(135deg, #131108, #0e0e08);
+            border: 1px solid rgba(201,168,76,0.3);
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .devis-total-label {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gris-light);
+            margin-bottom: 12px;
+        }
+
+        .devis-total-prix {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 64px;
+            font-weight: 600;
+            color: var(--or);
+            line-height: 1;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+
+        .devis-total-note {
+            font-size: 11px;
+            color: var(--gris-light);
+            margin-top: 4px;
+        }
+
+        .devis-recap {
+            background: var(--noir-2);
+            border: 1px solid rgba(201,168,76,0.1);
+            padding: 20px;
+        }
+
+        .devis-recap-title {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--or);
+            margin-bottom: 14px;
+        }
+
+        .devis-recap-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--gris-light);
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .devis-recap-item:last-child { border-bottom: none; }
+        .devis-recap-item span:last-child { color: var(--or); }
+
+        @media (max-width: 768px) {
+            .devis-calc { grid-template-columns: 1fr !important; gap: 24px !important; }
+            .devis-total-prix { font-size: 48px !important; }
+        }
+
     </style>
 </head>
 <body>
@@ -1305,6 +1461,101 @@
                 <p style="font-size:14px; font-weight:300; color:var(--gris-light); margin-bottom:28px;">Chaque projet est unique. Contactez-moi et on trouve ensemble la meilleure solution.</p>
                 <div class="btn-gold" onclick="showPage('contact')" style="display:inline-block">Me contacter →</div>
             </div>
+
+            <!-- CALCULATRICE DE DEVIS -->
+            <div style="margin-top:70px;" class="reveal">
+                <div class="section-label" style="margin-bottom:16px">Estimez votre budget</div>
+                <h2 class="section-title" style="margin-bottom:40px;">Calculez votre <em>devis</em> en direct</h2>
+
+                <div class="devis-calc">
+                    <div class="devis-left">
+                        <div class="devis-section-label">1. Choisissez votre forfait</div>
+
+                        <div class="devis-option selected" onclick="selectForfait(this, 200)">
+                            <div>
+                                <div class="devis-option-name">Site vitrine essentiel</div>
+                                <div class="devis-option-desc">Accueil, présentation, horaires, contact</div>
+                            </div>
+                            <div class="devis-option-prix">200€</div>
+                        </div>
+
+                        <div class="devis-option" onclick="selectForfait(this, 350)">
+                            <div>
+                                <div class="devis-option-name">Site vitrine complet</div>
+                                <div class="devis-option-desc">Essentiel + galerie, avis clients, réservation</div>
+                            </div>
+                            <div class="devis-option-prix">350€</div>
+                        </div>
+
+                        <div class="devis-section-label" style="margin-top:28px">2. Options supplémentaires</div>
+
+                        <div class="devis-check" onclick="toggleDevis(this, 50)">
+                            <div style="display:flex; align-items:center; gap:14px;">
+                                <div class="devis-check-box"></div>
+                                <div>
+                                    <div class="devis-option-name">Carte Google Maps</div>
+                                    <div class="devis-option-desc">Vos clients vous trouvent facilement</div>
+                                </div>
+                            </div>
+                            <div class="devis-option-prix">+50€</div>
+                        </div>
+
+                        <div class="devis-check" onclick="toggleDevis(this, 80)">
+                            <div style="display:flex; align-items:center; gap:14px;">
+                                <div class="devis-check-box"></div>
+                                <div>
+                                    <div class="devis-option-name">Formulaire de réservation</div>
+                                    <div class="devis-option-desc">Vos clients réservent depuis le site</div>
+                                </div>
+                            </div>
+                            <div class="devis-option-prix">+80€</div>
+                        </div>
+
+                        <div class="devis-check" onclick="toggleDevis(this, 60)">
+                            <div style="display:flex; align-items:center; gap:14px;">
+                                <div class="devis-check-box"></div>
+                                <div>
+                                    <div class="devis-option-name">Galerie photos interactive</div>
+                                    <div class="devis-option-desc">Mettez vos réalisations en valeur</div>
+                                </div>
+                            </div>
+                            <div class="devis-option-prix">+60€</div>
+                        </div>
+
+                        <div class="devis-check" onclick="toggleDevis(this, 20)">
+                            <div style="display:flex; align-items:center; gap:14px;">
+                                <div class="devis-check-box"></div>
+                                <div>
+                                    <div class="devis-option-name">Maintenance mensuelle</div>
+                                    <div class="devis-option-desc">Mises à jour et support inclus</div>
+                                </div>
+                            </div>
+                            <div class="devis-option-prix">+20€/mois</div>
+                        </div>
+                    </div>
+
+                    <div class="devis-right">
+                        <div class="devis-total-box">
+                            <div class="devis-total-label">Votre estimation</div>
+                            <div class="devis-total-prix" id="devis-total">200€</div>
+                            <div class="devis-total-note">Paiement uniquement après validation</div>
+                            <div class="devis-total-note">Devis gratuit · Sans engagement</div>
+                        </div>
+                        <div class="devis-recap" id="devis-recap">
+                            <div class="devis-recap-title">Récapitulatif</div>
+                            <div id="devis-recap-items">
+                                <div class="devis-recap-item">
+                                    <span>Site vitrine essentiel</span>
+                                    <span>200€</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-gold" onclick="showPage('contact')" style="display:block; text-align:center; margin-top:20px; font-size:10px; padding:16px;">
+                            Demander ce devis gratuitement →
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <footer>
             <div class="footer-logo">Web<span>Studio</span> · Rennes</div>
@@ -1380,6 +1631,51 @@
     </div>
 
     <script>
+        // ── CALCULATRICE DE DEVIS ──
+        let devisForfait = 200;
+        let devisForfaitNom = 'Site vitrine essentiel';
+        let devisOptions = [];
+
+        function selectForfait(el, prix) {
+            document.querySelectorAll('.devis-option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            devisForfait = prix;
+            devisForfaitNom = el.querySelector('.devis-option-name').textContent;
+            calculerDevis();
+        }
+
+        function toggleDevis(el, prix) {
+            const nom = el.querySelector('.devis-option-name').textContent;
+            if (el.classList.contains('checked')) {
+                el.classList.remove('checked');
+                el.querySelector('.devis-check-box').textContent = '';
+                devisOptions = devisOptions.filter(o => o.nom !== nom);
+            } else {
+                el.classList.add('checked');
+                el.querySelector('.devis-check-box').textContent = '✓';
+                devisOptions.push({ nom, prix });
+            }
+            calculerDevis();
+        }
+
+        function calculerDevis() {
+            let total = devisForfait;
+            devisOptions.forEach(o => total += o.prix);
+
+            // Animation du prix
+            const el = document.getElementById('devis-total');
+            el.style.transform = 'scale(1.1)';
+            el.textContent = total + '€';
+            setTimeout(() => el.style.transform = 'scale(1)', 200);
+
+            // Mise à jour du récap
+            let html = `<div class="devis-recap-item"><span>${devisForfaitNom}</span><span>${devisForfait}€</span></div>`;
+            devisOptions.forEach(o => {
+                html += `<div class="devis-recap-item"><span>${o.nom}</span><span>+${o.prix}€</span></div>`;
+            });
+            document.getElementById('devis-recap-items').innerHTML = html;
+        }
+
         function showPage(name) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('page-' + name).classList.add('active');
