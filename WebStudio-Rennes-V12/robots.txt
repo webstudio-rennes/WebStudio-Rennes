@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /paiement.html
+Disallow: /notice.html
+Sitemap: https://webstudio-rennes.github.io/WebStudio-Rennes/sitemap.xml
